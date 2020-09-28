@@ -1,4 +1,4 @@
-module promcurl
+module github.com/danielb42/promcurl
 
 go 1.15
 

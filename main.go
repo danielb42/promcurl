@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os"
 	"regexp"
 
 	wf "github.com/danielb42/whiteflag"
@@ -14,7 +13,7 @@ import (
 )
 
 type (
-	Line        interface{ Format() string }
+	Line        interface{ Colorize() string }
 	ScalarLine  struct{ Text string }
 	VectorLine  struct{ Text string }
 	HelpComment struct{ Text string }
@@ -24,10 +23,10 @@ type (
 
 var (
 	firstLine = true
-	re_scalar = regexp.MustCompile(`^([a-zA-Z0-9_]+) ([0-9\-\.e\+Na]+)$`)
-	re_vector = regexp.MustCompile(`^([a-zA-Z0-9_]+){(.*)} ([0-9\-\.e\+Na]+)$`)
+	re_scalar = regexp.MustCompile(`^(\w+) ([0-9\-\.e\+Na]+)$`)
+	re_vector = regexp.MustCompile(`^(\w+){(.*)} ([0-9\-\.e\+Na]+)$`)
 	re_help   = regexp.MustCompile(`^(#) (HELP) (\w+) (.+)$`)
-	re_type   = regexp.MustCompile(`^(#) (TYPE) (\w+) (.+)$`)
+	re_type   = regexp.MustCompile(`^(#) (TYPE) (\w+) (\w+)$`)
 )
 
 func main() {
@@ -54,18 +53,14 @@ func main() {
 	}
 	defer resp.Body.Close()
 
-	//TODO
-	//w := tabwriter.NewWriter(os.Stdout, 0, 0, 1, '.', tabwriter.Debug)
-	//defer w.Flush()
-	w := os.Stdout
-
 	for s := bufio.NewScanner(resp.Body); s.Scan(); {
 		line := parseLine(s.Text())
-		fmt.Fprint(w, line.Format())
+		fmt.Print(line.Colorize())
 	}
 }
 
 func parseLine(line string) Line {
+
 	if re_scalar.MatchString(line) {
 		return ScalarLine{Text: line}
 	}
@@ -85,28 +80,28 @@ func parseLine(line string) Line {
 	return OtherLine{Text: line}
 }
 
-func (line ScalarLine) Format() string {
+func (line ScalarLine) Colorize() string {
 
 	tokens := re_scalar.FindStringSubmatch(line.Text)
 
 	return fmt.Sprintf("%s %s\n",
-		tokens[1],
-		c.Green(tokens[2]).String(),
+		c.Gray(20, tokens[1]),
+		c.Cyan(tokens[2]),
 	)
 }
 
-func (line VectorLine) Format() string {
+func (line VectorLine) Colorize() string {
 
 	tokens := re_vector.FindStringSubmatch(line.Text)
 
 	return fmt.Sprintf("%s %s %s\n",
-		tokens[1],
-		c.Magenta(tokens[2]).String(),
-		c.Green(tokens[3]).String(),
+		c.Gray(20, tokens[1]),
+		c.BrightBlue(tokens[2]),
+		c.Cyan(tokens[3]),
 	)
 }
 
-func (line HelpComment) Format() string {
+func (line HelpComment) Colorize() string {
 
 	if wf.FlagPresent("nocomments") {
 		return ""
@@ -124,14 +119,14 @@ func (line HelpComment) Format() string {
 
 	return fmt.Sprintf("%s%s %s %s %s\n",
 		leadingNewline,
-		c.Gray(12, tokens[1]).String(),
-		c.Gray(12, tokens[2]).String(),
-		c.Blue(tokens[3]).String(),
-		c.Green(tokens[4]).String(),
+		c.Gray(12, tokens[1]),
+		c.Gray(12, tokens[2]),
+		c.Gray(12, tokens[3]),
+		c.Gray(20, tokens[4]),
 	)
 }
 
-func (line TypeComment) Format() string {
+func (line TypeComment) Colorize() string {
 
 	if wf.FlagPresent("nocomments") {
 		return ""
@@ -140,13 +135,13 @@ func (line TypeComment) Format() string {
 	tokens := re_type.FindStringSubmatch(line.Text)
 
 	return fmt.Sprintf("%s %s %s %s\n",
-		c.Gray(12, tokens[1]).String(),
-		c.Gray(12, tokens[2]).String(),
-		c.Blue(tokens[3]).String(),
-		c.Green(tokens[4]).String(),
+		c.Gray(12, tokens[1]),
+		c.Gray(12, tokens[2]),
+		c.Gray(12, tokens[3]),
+		c.Gray(20, tokens[4]),
 	)
 }
 
-func (line OtherLine) Format() string {
-	return c.Red(line.Text).String() + "\n"
+func (line OtherLine) Colorize() string {
+	return fmt.Sprintf("%s\n", c.Red(line.Text))
 }

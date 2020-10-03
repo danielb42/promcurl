@@ -24,8 +24,8 @@ type (
 
 var (
 	firstLine = true
-	re_scalar = regexp.MustCompile(`^([a-zA-Z0-9_]+) ([0-9\-\.e\+]+)$`)
-	re_vector = regexp.MustCompile(`^([a-zA-Z0-9_]+){(.+)} ([0-9\-\.e\+]+)$`)
+	re_scalar = regexp.MustCompile(`^([a-zA-Z0-9_]+) ([0-9\-\.e\+Na]+)$`)
+	re_vector = regexp.MustCompile(`^([a-zA-Z0-9_]+){(.*)} ([0-9\-\.e\+Na]+)$`)
 	re_help   = regexp.MustCompile(`^(#) (HELP) (\w+) (.+)$`)
 	re_type   = regexp.MustCompile(`^(#) (TYPE) (\w+) (.+)$`)
 )

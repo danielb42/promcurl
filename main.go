@@ -21,12 +21,18 @@ type (
 	OtherLine   struct{ Text string }
 )
 
+type Label struct {
+	Key   string
+	Value string
+}
+
 var (
 	firstLine = true
 	re_scalar = regexp.MustCompile(`^(\w+) ([0-9\-\.e\+Na]+)$`)
 	re_vector = regexp.MustCompile(`^(\w+){(.*)} ([0-9\-\.e\+Na]+)$`)
 	re_help   = regexp.MustCompile(`^(#) (HELP) (\w+) (.+)$`)
 	re_type   = regexp.MustCompile(`^(#) (TYPE) (\w+) (\w+)$`)
+	re_label  = regexp.MustCompile(`(\w+)="(.+?)"`)
 )
 
 func main() {
@@ -80,24 +86,45 @@ func parseLine(line string) Line {
 	return OtherLine{Text: line}
 }
 
+func parseLabels(line string) []Label {
+
+	var labels []Label
+
+	for _, matches := range re_label.FindAllStringSubmatch(line, -1) {
+		label := Label{
+			Key:   matches[1],
+			Value: matches[2],
+		}
+
+		labels = append(labels, label)
+	}
+
+	return labels
+}
+
 func (line ScalarLine) Colorize() string {
 
 	tokens := re_scalar.FindStringSubmatch(line.Text)
 
 	return fmt.Sprintf("%s %s\n",
 		c.Gray(20, tokens[1]),
-		c.Cyan(tokens[2]),
+		c.Green(tokens[2]),
 	)
 }
 
 func (line VectorLine) Colorize() string {
 
+	labels := ""
+	for _, label := range parseLabels(line.Text) {
+		labels += fmt.Sprintf("%s=%s ", c.Cyan(label.Key), c.BrightCyan(label.Value))
+	}
+
 	tokens := re_vector.FindStringSubmatch(line.Text)
 
-	return fmt.Sprintf("%s %s %s\n",
+	return fmt.Sprintf("%s %s%s\n",
 		c.Gray(20, tokens[1]),
-		c.BrightBlue(tokens[2]),
-		c.Cyan(tokens[3]),
+		labels,
+		c.Green(tokens[3]),
 	)
 }
 

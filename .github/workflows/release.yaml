@@ -40,8 +40,8 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: promcurl_linux_amd64.tar.gz
-          asset_name: promcurl_linux_amd64
-          asset_content_type: application/x-executable
+          asset_name: promcurl_linux_amd64.tar.gz
+          asset_content_type: application/gzip
 
       - name: Upload darwin asset
         uses: actions/upload-release-asset@v1
@@ -50,8 +50,8 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: promcurl_darwin_amd64.tar.gz
-          asset_name: promcurl_darwin_amd64
-          asset_content_type: application/x-executable
+          asset_name: promcurl_darwin_amd64.tar.gz
+          asset_content_type: application/gzip
 
       - name: Upload windows asset
         uses: actions/upload-release-asset@v1
@@ -60,5 +60,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: promcurl_windows_amd64.zip
-          asset_name: promcurl_windows_amd64
-          asset_content_type: application/x-executable
+          asset_name: promcurl_windows_amd64.zip
+          asset_content_type: application/zip

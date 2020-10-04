@@ -32,7 +32,7 @@ var (
 	re_vector = regexp.MustCompile(`^(\w+){(.*)} ([0-9\-\.e\+Na]+)$`)
 	re_help   = regexp.MustCompile(`^(#) (HELP) (\w+)(.+)?$`)
 	re_type   = regexp.MustCompile(`^(#) (TYPE) (\w+) (\w+)$`)
-	re_label  = regexp.MustCompile(`(\w+)="(.+?)"`)
+	re_label  = regexp.MustCompile(`(\w+)="(.*?)"`)
 )
 
 func main() {
@@ -96,7 +96,9 @@ func parseLabels(line string) []Label {
 			Value: matches[2],
 		}
 
-		labels = append(labels, label)
+		if len(label.Value) > 0 {
+			labels = append(labels, label)
+		}
 	}
 
 	return labels

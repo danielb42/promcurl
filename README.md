@@ -1,6 +1,6 @@
 # promcurl
 
-![Build](https://github.com/danielb42/promcurl/workflows/Create%20Release/badge.svg)
+![Build](https://github.com/danielb42/promcurl/workflows/Build/badge.svg)
 ![Tag](https://img.shields.io/github/v/tag/danielb42/promcurl)
 ![Go Version](https://img.shields.io/github/go-mod/go-version/danielb42/promcurl)
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/danielb42/promcurl)](https://pkg.go.dev/github.com/danielb42/promcurl)
@@ -11,9 +11,8 @@ Colorize Prometheus metric output on the terminal.
 
 | Command | Result |
 |-|-|
-| `curl http://prometheus/metrics`           | ![screenshot](temp.png) |
-| `promcurl -u http://prometheus/metrics`    | ![screenshot](temp.png) |
-| `promcurl -u http://prometheus/metrics -n` | ![screenshot](temp.png) |
+| `promcurl -u http://prometheus/metrics`    | ![screenshot1](screen1.png) |
+| `promcurl -u http://prometheus/metrics -n` | ![screenshot2](screen2.png) |
 
 ## Install
 

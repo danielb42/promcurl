@@ -30,7 +30,7 @@ var (
 	firstLine = true
 	re_scalar = regexp.MustCompile(`^(\w+) ([0-9\-\.e\+Na]+)$`)
 	re_vector = regexp.MustCompile(`^(\w+){(.*)} ([0-9\-\.e\+Na]+)$`)
-	re_help   = regexp.MustCompile(`^(#) (HELP) (\w+) (.+)$`)
+	re_help   = regexp.MustCompile(`^(#) (HELP) (\w+)(.+)?$`)
 	re_type   = regexp.MustCompile(`^(#) (TYPE) (\w+) (\w+)$`)
 	re_label  = regexp.MustCompile(`(\w+)="(.+?)"`)
 )
@@ -144,7 +144,7 @@ func (line HelpComment) Colorize() string {
 
 	tokens := re_help.FindStringSubmatch(line.Text)
 
-	return fmt.Sprintf("%s%s %s %s %s\n",
+	return fmt.Sprintf("%s%s %s %s%s\n",
 		leadingNewline,
 		c.Gray(12, tokens[1]),
 		c.Gray(12, tokens[2]),

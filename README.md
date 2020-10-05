@@ -8,11 +8,10 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 Colorize Prometheus metric output on the terminal.
-
-| Command | Result |
+|&nbsp;|&nbsp;|
 |-|-|
-| `promcurl -u http://prometheus/metrics`    | ![screenshot1](screen1.png) |
-| `promcurl -u http://prometheus/metrics -n` | ![screenshot2](screen2.png) |
+| `promcurl -u http://prmths/metrics`    | ![screenshot1](screen1.png) |
+| `promcurl -u http://prmths/metrics -n` | ![screenshot2](screen2.png) |
 
 ## Install
 

@@ -109,7 +109,7 @@ func (line ScalarLine) Colorize() string {
 	tokens := re_scalar.FindStringSubmatch(line.Text)
 
 	return fmt.Sprintf("%s %s\n",
-		c.Gray(20, tokens[1]),
+		tokens[1],
 		c.Green(tokens[2]),
 	)
 }
@@ -118,13 +118,13 @@ func (line VectorLine) Colorize() string {
 
 	labels := ""
 	for _, label := range parseLabels(line.Text) {
-		labels += fmt.Sprintf("%s=%s ", c.Cyan(label.Key), c.BrightCyan(label.Value))
+		labels += fmt.Sprintf("%s=%s ", c.Cyan(label.Key), c.Cyan(label.Value))
 	}
 
 	tokens := re_vector.FindStringSubmatch(line.Text)
 
 	return fmt.Sprintf("%s %s%s\n",
-		c.Gray(20, tokens[1]),
+		tokens[1],
 		labels,
 		c.Green(tokens[3]),
 	)
@@ -148,10 +148,10 @@ func (line HelpComment) Colorize() string {
 
 	return fmt.Sprintf("%s%s %s %s%s\n",
 		leadingNewline,
-		c.Gray(12, tokens[1]),
-		c.Gray(12, tokens[2]),
-		c.Gray(12, tokens[3]),
-		c.Gray(20, tokens[4]),
+		tokens[1],
+		tokens[2],
+		tokens[3],
+		tokens[4],
 	)
 }
 
@@ -164,10 +164,10 @@ func (line TypeComment) Colorize() string {
 	tokens := re_type.FindStringSubmatch(line.Text)
 
 	return fmt.Sprintf("%s %s %s %s\n",
-		c.Gray(12, tokens[1]),
-		c.Gray(12, tokens[2]),
-		c.Gray(12, tokens[3]),
-		c.Gray(20, tokens[4]),
+		tokens[1],
+		tokens[2],
+		tokens[3],
+		tokens[4],
 	)
 }
 

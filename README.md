@@ -11,7 +11,9 @@ Colorize Prometheus metric output on the terminal.
 |&nbsp;|&nbsp;|
 |-|-|
 | `promcurl -u http://prmths/metrics`    | ![screenshot1](screen1.png) |
-| `promcurl -u http://prmths/metrics -n` | ![screenshot2](screen2.png) |
+| `promcurl -n -u http://prmths/metrics`<br />(--nocomments) | ![screenshot2](screen2.png) |
+
+Colors are chosen sensibly to be readable on both dark and bright terminal profiles, but having a darker terminal is better.
 
 ## Install
 
@@ -22,3 +24,7 @@ Precompiled amd64-binaries are available for Linux and MacOS: [Latest Release](h
 ### ... or build it yourself
 
 `go get github.com/danielb42/promcurl`
+
+### Contribute
+
+Pull requests welcome for parsing corner cases or improving coloring.

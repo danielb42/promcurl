@@ -17,11 +17,11 @@ Colors are chosen sensibly to be readable on both dark and bright terminal profi
 
 ## Install
 
-### Either download the binary ...
+### Either download a precompiled binary ...
 
-Precompiled amd64-binaries are available for Linux and MacOS: [Latest Release](https://github.com/danielb42/promcurl/releases/latest)
+Available for Linux and MacOS: [Latest Release](https://github.com/danielb42/promcurl/releases/latest)
 
-### ... or build it yourself
+### ... or use go get
 
 `go get github.com/danielb42/promcurl`
 

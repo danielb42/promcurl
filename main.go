@@ -28,8 +28,8 @@ type Label struct {
 
 var (
 	firstLine = true
-	re_scalar = regexp.MustCompile(`^(\w+) ([0-9\-\.e\+Na]+)$`)
-	re_vector = regexp.MustCompile(`^(\w+){(.*)} ([0-9\-\.e\+Na]+)$`)
+	re_scalar = regexp.MustCompile(`^(\w+) ([0-9\-\.e\+NaInf]+)$`)
+	re_vector = regexp.MustCompile(`^(\w+){(.*)} ([0-9\-\.e\+NaInf]+)$`)
 	re_help   = regexp.MustCompile(`^(#) (HELP) (\w+)(.+)?$`)
 	re_type   = regexp.MustCompile(`^(#) (TYPE) (\w+) (\w+)$`)
 	re_label  = regexp.MustCompile(`(\w+)="(.*?)"`)
